@@ -8,7 +8,7 @@ import br.com.mauriciotsilva.malhalogistica.dominio.rota.Mapa;
 
 public class RotaRepository {
 
-	public List<Malha> teste() {
+	public List<Malha> listarMalhas() {
 
 		Mapa mapa = new Mapa("SP");
 
@@ -18,6 +18,8 @@ public class RotaRepository {
 		malhas.add(new Malha(mapa, "A", "B", 10));
 		malhas.add(new Malha(mapa, "A", "C", 20));
 		malhas.add(new Malha(mapa, "C", "D", 30));
+		malhas.add(new Malha(mapa, "B", "E", 50));
+		malhas.add(new Malha(mapa, "D", "E", 30));
 
 		return malhas;
 	}

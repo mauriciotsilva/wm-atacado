@@ -1,14 +1,15 @@
 package br.com.mauriciotsilva.malhalogistica.service;
 
+import static java.util.stream.Collectors.groupingBy;
+import static java.util.stream.Collectors.toList;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 import br.com.mauriciotsilva.malhalogistica.dominio.rota.Malha;
 import br.com.mauriciotsilva.malhalogistica.repositorio.RotaRepository;
 import br.com.mauriciotsilva.malhalogistica.rota.EntradaEstimativaRota;
-import br.com.mauriciotsilva.malhalogistica.rota.Rota;
 import br.com.mauriciotsilva.malhalogistica.rota.RotaEstimada;
 
 public class RotaService {
@@ -19,53 +20,39 @@ public class RotaService {
 		repository = new RotaRepository();
 	}
 
-	public RotaEstimada estimar(EntradaEstimativaRota entrada) {
+	public List<RotaEstimada> listarEstimativas(EntradaEstimativaRota entrada) {
 
-		List<Malha> malhas = repository.teste();
+		List<Malha> malhas = repository.listarMalhas();
+		Map<String, List<Malha>> grupoMalhas = malhas.stream().collect(groupingBy(Malha::getOrigem, toList()));
 
-		Map<String, List<Malha>> teste = malhas.stream()
-				.collect(Collectors.groupingBy(Malha::getOrigem, Collectors.toList()));
+		return listarEstimativas(entrada, grupoMalhas);
+	}
+
+	private List<RotaEstimada> listarEstimativas(EntradaEstimativaRota entrada, Map<String, List<Malha>> grupo) {
 
 		List<RotaEstimada> estimadas = new ArrayList<>();
 
-		for (String origem : teste.keySet()) {
+		List<Malha> malhas = grupo.get(entrada.getOrigem());
+		if(malhas == null){
+			malhas = new ArrayList<>();
+		}
+		for (Malha malha : malhas) {
 
-			for (Malha mal : teste.get(origem)) {
-				if (entrada.getOrigem().equals(origem)) {
+			RotaEstimada estimada = new RotaEstimada(entrada);
+			estimada.adicionar(malha);
 
-					RotaEstimada rotaEstimada = new RotaEstimada(entrada.getAutonomia(), entrada.getValorCombustivel());
-					Rota r = new Rota();
-					r.setInicio(mal.getOrigem());
-					r.setTermino(mal.getDestino());
-					r.setDistancia(mal.getDistancia());
-
-					rotaEstimada.adicionar(r);
-
-					teste: while (true) {
-
-						List<Malha> d = teste.get(mal.getDestino());
-						if (d == null)
-							break;
-						for (Malha a : d) {
-							if (a.getDestino().equals(entrada.getDestino())) {
-								Rota rota = new Rota();
-								rota.setInicio(a.getOrigem());
-								rota.setTermino(a.getDestino());
-								rota.setDistancia(a.getDistancia());
-
-								rotaEstimada.adicionar(rota);
-								break teste;
-							}
-						}
-					}
-
-					estimadas.add(rotaEstimada);
-
-				}
+			List<Malha> rotas = grupo.get(malha.getDestino());
+			if (rotas != null) {
+				rotas.stream().filter(rota -> rota.getDestino().equals(entrada.getDestino())).forEach(rota -> {
+					estimada.adicionar(rota);
+				});
 			}
+
+			estimadas.add(estimada);
 		}
 
-		return estimadas.stream().min((estimativa, outra) -> estimativa.getDistancia() - outra.getDistancia()).get();
+		return estimadas.stream().filter(RotaEstimada::atende)
+				.sorted((estimativa, outra) -> estimativa.getDistancia() - outra.getDistancia()).collect(toList());
 	}
 
 }

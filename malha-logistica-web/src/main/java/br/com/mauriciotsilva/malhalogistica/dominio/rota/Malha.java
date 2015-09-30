@@ -1,7 +1,13 @@
 package br.com.mauriciotsilva.malhalogistica.dominio.rota;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlTransient;
+
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Malha {
 
+	@XmlTransient
 	private Mapa mapa;
 	private String origem;
 	private String destino;
@@ -12,10 +18,11 @@ public class Malha {
 
 	public Malha(Mapa mapa, String origem, String destino, int distancia) {
 		this.mapa = mapa;
-		mapa.adicionar(this);
 		this.origem = origem;
 		this.destino = destino;
 		this.distancia = distancia;
+
+		mapa.adicionar(this);
 	}
 
 	public Mapa getMapa() {

@@ -4,37 +4,59 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
+import br.com.mauriciotsilva.malhalogistica.dominio.rota.Malha;
+
 public class RotaEstimada {
 
 	private Integer autonomia;
 	private Integer distancia;
 	private BigDecimal custo;
-	private List<Rota> rotas;
+	private List<Malha> malhas;
+	private String origem;
+	private String destino;
+	private String mapa;
+	private EntradaEstimativaRota entrada;
 
-	public RotaEstimada(Integer autonomia, BigDecimal custo) {
-		this.custo = custo;
-		this.autonomia = autonomia;
+	public RotaEstimada(EntradaEstimativaRota entrada) {
+		this.mapa = entrada.getNomeMapa();
+		this.entrada = entrada;
+		this.autonomia = entrada.getAutonomia();
 		this.distancia = 0;
-		this.rotas = new ArrayList<>();
+		this.malhas = new ArrayList<>();
 	}
 
-	public void adicionar(Rota rota) {
-		distancia += rota.getDistancia();
-		this.rotas.add(rota);
+	public void adicionar(Malha malha) {
+		distancia += malha.getDistancia();
+
+		destino = malha.getDestino();
+		if (origem == null) {
+			origem = malha.getOrigem();
+		}
+
+		double numero = (double) distancia / autonomia;
+		custo = new BigDecimal(numero).multiply(entrada.getValorCombustivel());
+
+		malhas.add(malha);
 	}
 
-	public List<Rota> getRotas() {
-		return rotas;
+	public boolean atende() {
+		return entrada.getOrigem().equals(origem) && entrada.getDestino().equals(destino);
+	}
+
+	public List<Malha> getMalhas() {
+		return malhas;
 	}
 
 	public Integer getDistancia() {
 		return distancia;
 	}
 
-	public BigDecimal getValorViagem() {
-		
-		double numero = (double)distancia/autonomia;
-		return new BigDecimal(numero).multiply(custo);
+	public BigDecimal getCusto() {
+		return custo;
+	}
+	
+	public String getMapa() {
+		return mapa;
 	}
 
 }
