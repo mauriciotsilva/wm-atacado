@@ -2,30 +2,34 @@ package br.com.mauriciotsilva.malhalogistica.rota;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 import br.com.mauriciotsilva.malhalogistica.dominio.rota.Malha;
+import br.com.mauriciotsilva.malhalogistica.service.Rota;
 
-public class MalhaEstimada {
+public class MalhaEstimada implements Cloneable {
 
 	private Integer autonomia;
 	private Integer distancia;
 	private BigDecimal custo;
-	private List<Malha> malhas;
+	private LinkedList<Malha> malhas;
 	private String origem;
 	private String destino;
 	private String mapa;
 	private EntradaEstimativaMalha entrada;
+	private List<Rota> rotas;
 
 	public MalhaEstimada(EntradaEstimativaMalha entrada) {
 		this.mapa = entrada.getNomeMapa();
 		this.entrada = entrada;
 		this.autonomia = entrada.getAutonomia();
 		this.distancia = 0;
-		this.malhas = new ArrayList<>();
+		this.malhas = new LinkedList<>();
 	}
 
 	public void adicionar(Malha malha) {
+
 		distancia += malha.getDistancia();
 
 		destino = malha.getDestino();
@@ -65,6 +69,31 @@ public class MalhaEstimada {
 
 	public String getDestino() {
 		return destino;
+	}
+	
+	public void setRotas(List<Rota> rotas) {
+		this.rotas = rotas;
+	}
+	
+	public List<Rota> getRotas() {
+		return rotas;
+	}
+
+	@Override
+	public MalhaEstimada clone() {
+		try {
+			MalhaEstimada est = (MalhaEstimada) super.clone();
+			est.malhas = new LinkedList<>();
+
+			return est;
+		} catch (CloneNotSupportedException e) {
+			return null;
+		}
+	}
+	
+	@Override
+	public String toString() {
+		return "rotas: "+rotas.size();
 	}
 
 }

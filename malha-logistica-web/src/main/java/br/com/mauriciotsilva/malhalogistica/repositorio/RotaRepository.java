@@ -20,7 +20,13 @@ public class RotaRepository {
 		malhas.add(new Malha(mapa, "C", "D", 30));
 		malhas.add(new Malha(mapa, "B", "E", 50));
 		malhas.add(new Malha(mapa, "D", "E", 30));
-
+		malhas.add(new Malha(mapa, "D", "F", 20));
+		malhas.add(new Malha(mapa, "E", "F", 15));
+		malhas.add(new Malha(mapa, "C", "E", 20));
+		malhas.add(new Malha(mapa, "F", "X", 40));
+		malhas.add(new Malha(mapa, "F", "H", 8));
+		malhas.add(new Malha(mapa, "H", "X", 18));
+		
 		return malhas;
 	}
 
