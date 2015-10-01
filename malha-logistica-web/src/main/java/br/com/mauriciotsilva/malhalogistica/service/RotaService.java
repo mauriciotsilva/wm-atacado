@@ -6,21 +6,21 @@ import static java.util.stream.Collectors.toList;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
+
+import javax.inject.Inject;
 
 import br.com.mauriciotsilva.malhalogistica.dominio.rota.Malha;
 import br.com.mauriciotsilva.malhalogistica.repositorio.RotaRepository;
-import br.com.mauriciotsilva.malhalogistica.rota.EntradaEstimativaRota;
-import br.com.mauriciotsilva.malhalogistica.rota.RotaEstimada;
+import br.com.mauriciotsilva.malhalogistica.rota.EntradaEstimativaMalha;
+import br.com.mauriciotsilva.malhalogistica.rota.MalhaEstimada;
 
 public class RotaService {
 
+	@Inject
 	private RotaRepository repository;
 
-	public RotaService() {
-		repository = new RotaRepository();
-	}
-
-	public List<RotaEstimada> listarEstimativas(EntradaEstimativaRota entrada) {
+	public List<MalhaEstimada> listarEstimativas(EntradaEstimativaMalha entrada) {
 
 		List<Malha> malhas = repository.listarMalhas();
 		Map<String, List<Malha>> grupoMalhas = malhas.stream().collect(groupingBy(Malha::getOrigem, toList()));
@@ -28,17 +28,17 @@ public class RotaService {
 		return listarEstimativas(entrada, grupoMalhas);
 	}
 
-	private List<RotaEstimada> listarEstimativas(EntradaEstimativaRota entrada, Map<String, List<Malha>> grupo) {
+	private List<MalhaEstimada> listarEstimativas(EntradaEstimativaMalha entrada, Map<String, List<Malha>> grupo) {
 
-		List<RotaEstimada> estimadas = new ArrayList<>();
+		List<MalhaEstimada> estimadas = new ArrayList<>();
 
 		List<Malha> malhas = grupo.get(entrada.getOrigem());
-		if(malhas == null){
+		if (malhas == null) {
 			malhas = new ArrayList<>();
 		}
 		for (Malha malha : malhas) {
 
-			RotaEstimada estimada = new RotaEstimada(entrada);
+			MalhaEstimada estimada = new MalhaEstimada(entrada);
 			estimada.adicionar(malha);
 
 			List<Malha> rotas = grupo.get(malha.getDestino());
@@ -51,8 +51,9 @@ public class RotaService {
 			estimadas.add(estimada);
 		}
 
-		return estimadas.stream().filter(RotaEstimada::atende)
-				.sorted((estimativa, outra) -> estimativa.getDistancia() - outra.getDistancia()).collect(toList());
+		return estimadas.stream().filter(MalhaEstimada::atende)
+				.sorted((estimativa, outra) -> estimativa.getDistancia() - outra.getDistancia()).limit(5)
+				.collect(Collectors.toList());
 	}
 
 }

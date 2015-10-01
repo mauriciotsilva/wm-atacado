@@ -2,11 +2,11 @@ package br.com.mauriciotsilva.malhalogistica.rota;
 
 import java.math.BigDecimal;
 
-public class EntradaEstimativaRota {
+public class EntradaEstimativaMalha {
 
+	private String nomeMapa;
 	private String destino;
 	private String origem;
-	private String nomeMapa;
 	private Integer autonomia;
 	private BigDecimal valorCombustivel;
 

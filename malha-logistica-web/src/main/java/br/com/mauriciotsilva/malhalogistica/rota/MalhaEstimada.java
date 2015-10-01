@@ -6,7 +6,7 @@ import java.util.List;
 
 import br.com.mauriciotsilva.malhalogistica.dominio.rota.Malha;
 
-public class RotaEstimada {
+public class MalhaEstimada {
 
 	private Integer autonomia;
 	private Integer distancia;
@@ -15,9 +15,9 @@ public class RotaEstimada {
 	private String origem;
 	private String destino;
 	private String mapa;
-	private EntradaEstimativaRota entrada;
+	private EntradaEstimativaMalha entrada;
 
-	public RotaEstimada(EntradaEstimativaRota entrada) {
+	public MalhaEstimada(EntradaEstimativaMalha entrada) {
 		this.mapa = entrada.getNomeMapa();
 		this.entrada = entrada;
 		this.autonomia = entrada.getAutonomia();
@@ -54,9 +54,17 @@ public class RotaEstimada {
 	public BigDecimal getCusto() {
 		return custo;
 	}
-	
+
 	public String getMapa() {
 		return mapa;
+	}
+
+	public String getOrigem() {
+		return origem;
+	}
+
+	public String getDestino() {
+		return destino;
 	}
 
 }
