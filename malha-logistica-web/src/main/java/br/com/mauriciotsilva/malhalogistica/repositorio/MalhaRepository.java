@@ -6,7 +6,7 @@ import java.util.List;
 import br.com.mauriciotsilva.malhalogistica.dominio.rota.Malha;
 import br.com.mauriciotsilva.malhalogistica.dominio.rota.Mapa;
 
-public class RotaRepository {
+public class MalhaRepository {
 
 	public List<Malha> listarMalhas() {
 
@@ -26,7 +26,7 @@ public class RotaRepository {
 		malhas.add(new Malha(mapa, "F", "X", 40));
 		malhas.add(new Malha(mapa, "F", "H", 8));
 		malhas.add(new Malha(mapa, "H", "X", 18));
-		
+
 		return malhas;
 	}
 

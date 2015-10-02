@@ -11,18 +11,18 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 
 import br.com.mauriciotsilva.malhalogistica.rota.EntradaEstimativaMalha;
-import br.com.mauriciotsilva.malhalogistica.rota.MalhaEstimada;
-import br.com.mauriciotsilva.malhalogistica.service.RotaService;
+import br.com.mauriciotsilva.malhalogistica.rota.RotaEstimada;
+import br.com.mauriciotsilva.malhalogistica.service.EstimativaMalhaService;
 
 @Path("estimativas")
-public class RotaResource {
+public class RotaEstimadaResource {
 
 	@Inject
-	private RotaService servico;
+	private EstimativaMalhaService servico;
 
 	@GET
 	@Produces("application/json")
-	public List<MalhaEstimada> estimar(@QueryParam("mapa") String mapa, @QueryParam("origem") String origem,
+	public List<RotaEstimada> estimar(@QueryParam("mapa") String mapa, @QueryParam("origem") String origem,
 			@QueryParam("destino") String destino, @QueryParam("combustivel") BigDecimal valor,
 			@QueryParam("autonomia") @DefaultValue("1") Integer autonomia) {
 
