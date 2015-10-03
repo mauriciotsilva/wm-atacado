@@ -19,33 +19,7 @@ TabelaEstimativas = Backbone.View.extend({
 		});
 
 		return this;
-
 	}
-});
-
-Teste = Backbone.Collection.extend({
-	url : function() {
-		return 'api/estimativas';
-	},
-	model : Backbone.Model.extend({
-		parse : function(response) {
-
-			var caminho = [];
-			if (response.malhas) {
-
-				_.each(response.malhas, function(malha, index) {
-					var valor = malha.origem;
-					if(index == (response.malhas.length-1)){
-						caminho.push(valor);
-						valor = malha.destino;
-					}
-					caminho.push(valor);
-				});
-			}
-			response.caminho = caminho;
-			return response;
-		}
-	})
 });
 
 FormularioConsultaMalha = Backbone.View.extend({
@@ -64,11 +38,11 @@ FormularioConsultaMalha = Backbone.View.extend({
 		'click .btn-consulta-estivativa' : function(event) {
 			event.preventDefault();
 
-			var estimativas = new Teste();
+			var estimativas = new Estimativas();
 			estimativas.fetch({
 				data : this.criarConsulta(),
 				success : function(estimativas) {
-					$('.olaMUndo').modal();
+					$('.listagem-estimativa.modal').modal();
 					new TabelaEstimativas({
 						collection : estimativas
 					}).render();
