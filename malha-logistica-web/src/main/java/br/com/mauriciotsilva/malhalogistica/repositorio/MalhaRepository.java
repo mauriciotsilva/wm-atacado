@@ -26,6 +26,7 @@ public class MalhaRepository {
 		malhas.add(new Malha(mapa, "F", "X", 40));
 		malhas.add(new Malha(mapa, "F", "H", 8));
 		malhas.add(new Malha(mapa, "H", "X", 18));
+		malhas.add(new Malha(mapa, "J", "X", 18));
 
 		return malhas;
 	}

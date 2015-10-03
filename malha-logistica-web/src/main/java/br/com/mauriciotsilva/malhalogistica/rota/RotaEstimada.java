@@ -1,7 +1,7 @@
 package br.com.mauriciotsilva.malhalogistica.rota;
 
 import java.math.BigDecimal;
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.PriorityQueue;
 import java.util.Queue;
@@ -20,7 +20,7 @@ public class RotaEstimada implements Comparable<RotaEstimada> {
 	public RotaEstimada(EntradaEstimativaMalha entrada, Rota rota) {
 
 		this.distancia = 0;
-		this.malhas = new LinkedList<>();
+		this.malhas = new ArrayList<>();
 
 		registarMalhas(entrada, percorrer(rota));
 
@@ -28,7 +28,7 @@ public class RotaEstimada implements Comparable<RotaEstimada> {
 
 	private Queue<Rota> percorrer(Rota rota) {
 
-		Queue<Rota> rotas = new PriorityQueue<Rota>();
+		Queue<Rota> rotas = new PriorityQueue<>();
 		rotas.add(rota);
 
 		while (!rota.isInicio()) {
