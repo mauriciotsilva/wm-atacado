@@ -31,25 +31,3 @@ http://seuServidor:8080/malha-logistica-web/api/estimativas?mapa={nomeMapa}&orig
 	
 	Teste
 		JUnit
-	
-	
-	
-
-Apresentacao
-============
-	Aplicação de Rotas foi desenvolvida para calcular a rota de menor custo entre dois pontos em uma malha logistica conforme desafio proposto.
-	Expoe dois endpoints para a persistencia da malha logistica e para o calculo da rota de menor custo. 
-	Arquitetura:
-	============
-	O projeto foi desenvolvido usando a Plataforma JEE 8 - Java Enterprise Edition, empregando APIs 
-    REST Services             JPA (backed by Hibernate)
-    Spring core 4.0           Spring data 1.5.2
-    Spring MVC 4.0            Hibernate 4.3.1
-    Junit 4.8.1               Mockito 1.9.5
-    Derby 10.4.2
-Endpoint de persistencia: utilizado para persistir uma malha logistica.
-Parmetros do header: Content-Type application/json
-    http://localhost:8080/rotas/malhas
-    {"nome":"rota 1", "pontoOrigem":"A","pontoDestino":"B", "distancia":10 }
-Para buscar melhor rota logística:
-    
