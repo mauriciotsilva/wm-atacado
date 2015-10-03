@@ -9,6 +9,7 @@ import javax.inject.Inject;
 import br.com.mauriciotsilva.malhalogistica.dominio.rota.Malha;
 import br.com.mauriciotsilva.malhalogistica.repositorio.MalhaRepository;
 import br.com.mauriciotsilva.malhalogistica.rota.EntradaEstimativaMalha;
+import br.com.mauriciotsilva.malhalogistica.rota.RotaMapeada;
 import br.com.mauriciotsilva.malhalogistica.rota.RotaEstimada;
 
 public class EstimativaMalhaService {
@@ -22,8 +23,8 @@ public class EstimativaMalhaService {
 
 	public List<RotaEstimada> listarEstimativas(EntradaEstimativaMalha entrada) {
 
-		List<Malha> malhas = repository.listarMalhas();
-		MapearRota estruturador = new MapearRota(malhas);
+		List<Malha> malhas = repository.listar(entrada);
+		RotaMapeada estruturador = new RotaMapeada(malhas);
 
 		return estruturador.listar(entrada).stream().sorted().collect(toList());
 	}

@@ -1,6 +1,7 @@
 package br.com.mauriciotsilva.malhalogistica.rota;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.PriorityQueue;
@@ -55,8 +56,9 @@ public class RotaEstimada implements Comparable<RotaEstimada> {
 			origem = malha.getOrigem();
 		}
 
-		BigDecimal numero = new BigDecimal(distancia).divide(new BigDecimal(entrada.getAutonomia()));
-		custo = numero.multiply(entrada.getValorCombustivel());
+		BigDecimal numero = new BigDecimal(distancia).divide(new BigDecimal(entrada.getAutonomia()), 2,
+				RoundingMode.HALF_EVEN);
+		custo = numero.multiply(entrada.getValorCombustivel()).setScale(2, RoundingMode.HALF_EVEN);
 
 		malhas.add(malha);
 	}

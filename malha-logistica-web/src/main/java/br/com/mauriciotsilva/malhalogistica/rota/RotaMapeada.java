@@ -1,4 +1,4 @@
-package br.com.mauriciotsilva.malhalogistica.service;
+package br.com.mauriciotsilva.malhalogistica.rota;
 
 import static java.util.stream.Collectors.groupingBy;
 import static java.util.stream.Collectors.toList;
@@ -9,15 +9,14 @@ import java.util.List;
 import java.util.Map;
 
 import br.com.mauriciotsilva.malhalogistica.dominio.rota.Malha;
-import br.com.mauriciotsilva.malhalogistica.rota.EntradaEstimativaMalha;
-import br.com.mauriciotsilva.malhalogistica.rota.RotaEstimada;
+import br.com.mauriciotsilva.malhalogistica.service.Rota;
 
-public class MapearRota {
+public class RotaMapeada {
 
 	private final Map<String, List<Malha>> grupo;
 	private List<RotaEstimada> estimativas;
 
-	public MapearRota(Collection<Malha> malhas) {
+	public RotaMapeada(Collection<Malha> malhas) {
 		estimativas = new ArrayList<>();
 		grupo = malhas.stream().collect(groupingBy(Malha::getOrigem, toList()));
 	}

@@ -2,7 +2,7 @@ package br.com.mauriciotsilva.malhalogistica.rota;
 
 import java.math.BigDecimal;
 
-public class EntradaEstimativaMalha implements Cloneable{
+public class EntradaEstimativaMalha {
 
 	private String nomeMapa;
 	private String destino;
@@ -48,15 +48,6 @@ public class EntradaEstimativaMalha implements Cloneable{
 
 	public void setValorCombustivel(BigDecimal valorCombustivel) {
 		this.valorCombustivel = valorCombustivel;
-	}
-	
-	@Override
-	public EntradaEstimativaMalha clone()  {
-		try{
-			return (EntradaEstimativaMalha) super.clone();
-		}catch(CloneNotSupportedException e){
-			return null;
-		}
 	}
 
 }
