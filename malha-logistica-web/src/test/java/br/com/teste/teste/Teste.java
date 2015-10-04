@@ -21,7 +21,7 @@ public class Teste {
 	private static List<Malha> malhas;
 
 	@BeforeClass
-	public static void teste() {
+	public static void iniciar() {
 		malhas = new ArrayList<>();
 
 		malhas.add(new Malha("SP", "A", "B", 10));
@@ -31,6 +31,7 @@ public class Teste {
 		malhas.add(new Malha("SP", "B", "E", 50));
 		malhas.add(new Malha("SP", "D", "E", 30));
 	}
+	
 
 	@Test
 	public void deveRetornarUmCaminhoComposto() {
