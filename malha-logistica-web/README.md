@@ -17,7 +17,7 @@ Webservice
 
 	http://localhost:8080/malha-logistica-web/api/estimativas?mapa={nomeMapa}&origem={origem}&destino={destino}&autonomia={autonomia}&combustivel={combustivel}
 
-	Frontend
+Frontend
 	
 		HTML 5
 		JavaScript
@@ -26,15 +26,17 @@ Webservice
 		Backbonejs
 		Bootstrap
 	
-	Backend
+Backend
 
 		Java 8
 		Java EE 7
 		JAX-RS
 		CDI
 	
-	Persistencia
+Persistencia
+		
 		MongoDB
 	
-	Teste
+Teste
+	
 		JUnit
