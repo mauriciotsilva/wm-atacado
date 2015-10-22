@@ -56,11 +56,16 @@ public class RotaEstimada implements Comparable<RotaEstimada> {
 			origem = malha.getOrigem();
 		}
 
-		BigDecimal numero = new BigDecimal(distancia).divide(new BigDecimal(entrada.getAutonomia()), 2,
-				RoundingMode.HALF_EVEN);
-		custo = numero.multiply(entrada.getValorCombustivel()).setScale(2, RoundingMode.HALF_EVEN);
-
+		custo = calcularCusto(entrada);
 		malhas.add(malha);
+	}
+
+	private BigDecimal calcularCusto(EntradaEstimativaMalha entrada) {
+
+		BigDecimal autonomia = BigDecimal.valueOf(entrada.getAutonomia());
+
+		BigDecimal numero = new BigDecimal(distancia).divide(autonomia, 2, RoundingMode.HALF_EVEN);
+		return numero.multiply(entrada.getValorCombustivel()).setScale(2, RoundingMode.HALF_EVEN);
 	}
 
 	public List<Malha> getMalhas() {

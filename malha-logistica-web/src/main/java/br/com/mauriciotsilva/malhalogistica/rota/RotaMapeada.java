@@ -33,6 +33,7 @@ public class RotaMapeada {
 		for (Malha malha : malhas) {
 
 			Rota rota = new Rota(anterior, malha);
+
 			if (malha.getDestino().equals(entrada.getDestino())) {
 				estimativas.add(new RotaEstimada(entrada, rota));
 				break;

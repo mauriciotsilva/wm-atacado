@@ -12,8 +12,10 @@ import com.mongodb.MongoClient;
 public class Fabrica {
 
 	@Produces
-	public Datastore criarDatastore(MongoClient mongoClient) {
-		return new Morphia().createDatastore(mongoClient, "logistica");
+	public Datastore criarDatastore(MongoClient client) {
+
+		Morphia morphia = new Morphia();
+		return morphia.createDatastore(client, "logistica");
 	}
 
 	@Produces

@@ -32,8 +32,8 @@ public class Rota implements Comparable<Rota> {
 	}
 
 	@Override
-	public int compareTo(Rota o) {
-		return index - o.index;
+	public int compareTo(Rota rota) {
+		return index - rota.index;
 	}
 
 }

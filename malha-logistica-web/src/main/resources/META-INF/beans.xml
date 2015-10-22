@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<beans>
+	<alternatives>
+		<class>br.com.mauriciotsilva.malhalogistica.repositorio.MalhaJsonRepository</class>
+	</alternatives>
+</beans>
